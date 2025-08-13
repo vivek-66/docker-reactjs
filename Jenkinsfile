@@ -39,18 +39,24 @@ pipeline {
           }
      }
 
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv("${'sonar'}") {
-                    sh '''
-                    sonar-scanner \
+   stage('SonarQube Analysis') {
+    steps {
+        script {
+            // Get the path to the SonarQube Scanner tool installation
+            def scannerHome = tool 'sonarscanner'  // Must match the name in Jenkins Global Tool Config
+
+            // Inject SonarQube environment variables
+            withSonarQubeEnv('sonar') {            // Must match the name in SonarQube servers config
+                sh """
+                    ${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=docker-react \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://13.232.231.44:9000
-                    '''
-                }
+                """
             }
         }
+    }
+}
 
         stage('Build Docker Image') {
             steps {
