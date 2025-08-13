@@ -5,7 +5,7 @@ pipeline {
     }
 
     environment {
-        NEXUS_URL = 'http://13.233.12.160/:8082/'    // URL to the Nexus docker repo
+        NEXUS_URL = 'http://13.232.231.44:8082/'    // URL to the Nexus docker repo
         NEXUS_REPO = 'docker-releases'         // Nexus docker repo name
         DOCKER_USERNAME = 'admin'                  // username of Nexus repo
         DOCKER_PASSWORD = 'vivek2003@'               // password of Nexus repo
@@ -46,7 +46,7 @@ pipeline {
                     sonar-scanner \
                         -Dsonar.projectKey=docker-react \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://13.233.12.160/:9000
+                        -Dsonar.host.url=http://13.232.231.44/:9000
                     '''
                 }
             }
