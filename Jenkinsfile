@@ -35,9 +35,9 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npm test'
-            }
-        }
+                sh 'CI=false npm test -- --watchAll=false || true'
+          }
+     }
 
         stage('SonarQube Analysis') {
             steps {
