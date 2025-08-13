@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/vivek-66/docker-reactjs.git', credentialsId: 'github-creds'
+                git branch: 'master', url: 'https://github.com/vivek-66/docker-reactjs.git', credentialsId: 'github-creds'
             }
         }
 
