@@ -41,7 +41,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("${sonar}") {
+                withSonarQubeEnv("${'sonar'}") {
                     sh '''
                     sonar-scanner \
                         -Dsonar.projectKey=docker-react \
