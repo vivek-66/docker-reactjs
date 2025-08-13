@@ -71,9 +71,9 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 sh '''
-                echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_NAME" --password-stdin
-                docker tag $IMAGE_NAME:latest $DOCKERHUB_NAME/$DOCKERHUB_REPO:latest
-                docker push $DOCKERHUB_NAME/$DOCKERHUB_REPO:latest
+                echo "vivek2003@" | docker login -u "vivekkrishnab" --password-stdin
+                docker tag vivekkrishnab/docker-react/vivekkrishnab/docker-react:latest
+                docker push vivekkrishnab/docker-react:latest
                 '''
             }
         }
@@ -85,9 +85,9 @@ pipeline {
                 echo "version: '3'
                 services:
                   react-app:
-                    image: $DOCKERHUB_NAME/$DOCKERHUB_REPO:latest
+                    image: vivekkrishnab/docker-react:latest
                     ports:
-                      - '3000:80'
+                      - '3001:80'
                     restart: always" > docker-compose.yml
                 docker compose up -d
                 '''
