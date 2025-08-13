@@ -67,9 +67,9 @@ pipeline {
         stage('Push Image to Nexus') {
             steps {
                 sh '''
-                echo "vivek2003@" | docker login http://13.232.231.44:8082 -u "admin" --password-stdin
+                echo "vivek2003@" | docker 13.232.231.44:8082 -u "admin" --password-stdin
                 docker tag vivekkrishnab/docker-react:latest react/docker-release/docker-react:latest
-                docker push http://13.232.231.44:8082/docker-release/docker-react:latest
+                docker push 13.232.231.44:8082/docker-release/docker-react:latest
                 '''
             }
         }
