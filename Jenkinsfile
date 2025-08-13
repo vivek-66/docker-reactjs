@@ -11,7 +11,7 @@ pipeline {
         DOCKER_PASSWORD = 'vivek2003@'               // password of Nexus repo
         IMAGE_NAME = 'react'                       // name of image
         SONARQUBE_SERVER = 'Sonar'      // Jenkins SonarQube server name
-        DOCKERHUB_NAME = 'vivekkrishnab' // Docker Hub username
+        DOCKERHUB_NAME = 'vivekkishnab' // Docker Hub username
         DOCKERHUB_REPO = 'docker-reactjs'            // Docker Hub repo name
         DOCKERHUB_PASSWORD = 'vivek2003@'
     }
@@ -58,48 +58,50 @@ pipeline {
     }
 }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t vivekkrishnab/docker-react .'
-            }
-        }
+       stage('Build Docker Image') {
+    steps {
+        sh 'docker build -t vivekkishnab/docker-react .'
+    }
+}
+
 
         stage('Push Image to Nexus') {
     steps {
         sh '''
         echo "vivek2003@" | docker login 13.232.231.44:8082 -u "admin" --password-stdin
-        docker tag vivekkrishnab/docker-react:latest 13.232.231.44:8082/docker-release/docker-react:latest
+        docker tag vivekkishnab/docker-react:latest 13.232.231.44:8082/docker-release/docker-react:latest
         docker push 13.232.231.44:8082/docker-release/docker-react:latest
         '''
     }
 }
 
 
-        stage('Push Image to Docker Hub') {
-            steps {
-                sh '''
-                echo "vivek2003@" | docker login -u "vivekkrishnab" --password-stdin
-                docker tag vivekkrishnab/docker-react/vivekkrishnab/docker-react:latest
-                docker push vivekkrishnab/docker-react:latest
-                '''
-            }
-        }
 
-        stage('Deploy Application') {
-            steps {
-                sh '''
-                docker compose down || true
-                echo "version: '3'
-                services:
-                  react-app:
-                    image: vivekkrishnab/docker-react:latest
-                    ports:
-                      - '3001:80'
-                    restart: always" > docker-compose.yml
-                docker compose up -d
-                '''
-            }
-        }
+       stage('Push Image to Docker Hub') {
+    steps {
+        sh '''
+        echo "vivek2003@" | docker login -u "vivekkishnab" --password-stdin
+        docker tag vivekkishnab/docker-react:latest vivekkishnab/docker-react:latest
+        docker push vivekkishnab/docker-react:latest
+        '''
+    }
+}
+
+      stage('Deploy Application') {
+    steps {
+        sh '''
+        docker compose down || true
+        cat <<EOF > docker-compose.yml
+version: '3'
+services:
+  react-app:
+    image: vivekkrishnab/docker-react:latest
+    ports:
+      - "3001:80"
+    restart: always
+EOF
+        docker compose up -d
+        '''
     }
 }
 
