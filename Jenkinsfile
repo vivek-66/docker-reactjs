@@ -87,11 +87,11 @@ pipeline {
     }
 }
 
-      stage('Deploy Application') {
-    steps {
-        sh '''
-        docker compose down || true
-        cat <<EOF > docker-compose.yml
+          stage('Deploy Application') {
+          steps {
+              sh '''
+              docker compose down || true
+              cat <<EOF > docker-compose.yml
 version: '3'
 services:
   react-app:
@@ -100,8 +100,10 @@ services:
       - "3001:80"
     restart: always
 EOF
-        docker compose up -d
-        '''
-    }
-}
+              docker compose up -d
+              '''
+          }
+      }
+    }  // <-- closes stages
+}      // <-- closes pipeline
 
