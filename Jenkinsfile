@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/vivek-66/docker-reactjs.git', credentialsId: 'git-hook-token'
+                git branch: 'main', url: 'https://github.com/vivek-66/docker-reactjs.git', credentialsId: 'github-creds'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
                     sonar-scanner \
                         -Dsonar.projectKey=docker-react \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://13.232.231.44/:9000
+                        -Dsonar.host.url=http://13.232.231.44:9000
                     '''
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:latest .'
+                sh 'docker build -t $vivekkrishnab/docker-react .'
             }
         }
 
