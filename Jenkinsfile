@@ -5,21 +5,21 @@ pipeline {
     }
 
     environment {
-        NEXUS_URL = 'http://1.197.178.131:8082/'    // URL to the Nexus docker repo
-        NEXUS_REPO = 'react-docker-images'         // Nexus docker repo name
+        NEXUS_URL = 'http://13.233.12.160/:8082/'    // URL to the Nexus docker repo
+        NEXUS_REPO = 'docker-releases'         // Nexus docker repo name
         DOCKER_USERNAME = 'admin'                  // username of Nexus repo
-        DOCKER_PASSWORD = 'admin123'               // password of Nexus repo
+        DOCKER_PASSWORD = 'vivek2003@'               // password of Nexus repo
         IMAGE_NAME = 'react'                       // name of image
-        SONARQUBE_SERVER = 'SonarQube_Server'      // Jenkins SonarQube server name
-        DOCKERHUB_NAME = 'your-dockerhub-username' // Docker Hub username
-        DOCKERHUB_REPO = 'docker-react'            // Docker Hub repo name
-        DOCKERHUB_PASSWORD = 'your-dockerhub-password'
+        SONARQUBE_SERVER = 'Sonar'      // Jenkins SonarQube server name
+        DOCKERHUB_NAME = 'vivekkrishnab' // Docker Hub username
+        DOCKERHUB_REPO = 'docker-reactjs'            // Docker Hub repo name
+        DOCKERHUB_PASSWORD = 'vivek2003@'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/thejungwon/docker-reactjs.git', credentialsId: 'git-hook-token'
+                git branch: 'main', url: 'https://github.com/vivek-66/docker-reactjs.git', credentialsId: 'git-hook-token'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
                     sonar-scanner \
                         -Dsonar.projectKey=docker-react \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000
+                        -Dsonar.host.url=http://13.233.12.160/:9000
                     '''
                 }
             }
