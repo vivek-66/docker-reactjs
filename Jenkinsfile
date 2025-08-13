@@ -60,7 +60,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $vivekkrishnab/docker-react .'
+                sh 'docker build -t vivekkrishnab/docker-react .'
             }
         }
 
